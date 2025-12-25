@@ -4,7 +4,8 @@ from typing import List
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "sqlite:///./kids_store.db"  # Временно SQLite для быстрого запуска
+    # Railway автоматически предоставляет DATABASE_URL через переменную окружения
+    DATABASE_URL: str = "sqlite:///./kids_store.db"  # По умолчанию SQLite, переопределяется через env
     
     # CORS
     CORS_ORIGINS: List[str] = [
