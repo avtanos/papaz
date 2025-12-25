@@ -6,6 +6,10 @@ if [ -z "$DATABASE_URL" ]; then
     export DATABASE_URL="sqlite:///./kids_store.db"
 fi
 
+# Railway автоматически устанавливает переменную $PORT
+# Если PORT не установлен, используем 8000
+PORT=${PORT:-8000}
+
 # Запускаем приложение
-uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+exec uvicorn app.main:app --host 0.0.0.0 --port $PORT
 
