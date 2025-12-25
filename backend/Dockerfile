@@ -34,4 +34,5 @@ RUN chmod +x start.sh
 # Убеждаемся, что скрипт имеет правильные права
 RUN ls -la start.sh
 
-CMD ["./start.sh"]
+# Используем bash для правильной обработки переменных окружения
+CMD ["/bin/bash", "start.sh"]

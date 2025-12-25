@@ -13,12 +13,22 @@ fi
 
 # Railway автоматически устанавливает переменную $PORT
 # Если PORT не установлен, используем 8000
-PORT=${PORT:-8000}
-echo "Starting server on port $PORT"
+if [ -z "$PORT" ]; then
+    PORT=8000
+    echo "PORT not set, using default: $PORT"
+else
+    echo "Using PORT from environment: $PORT"
+fi
+
+# Выводим все переменные окружения для отладки
+echo "Environment variables:"
+echo "  PORT=$PORT"
+echo "  DATABASE_URL=$DATABASE_URL"
 
 # Создаем директорию для данных если нужно
 mkdir -p /app/data
 
 # Запускаем приложение с логированием
-exec uvicorn app.main:app --host 0.0.0.0 --port $PORT --log-level info
-
+# Используем явное указание порта как числа
+echo "Starting uvicorn on port $PORT"
+exec uvicorn app.main:app --host 0.0.0.0 --port "$PORT" --log-level info
