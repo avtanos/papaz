@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { customersApi, posApi, bonusesApi, storesApi } from '../services/api'
+import { customersApi, posApi, bonusesApi, storesApi, type Store } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 import '../App.css'
 
@@ -16,13 +16,15 @@ function POSPage() {
   
   // Для супер-админа - загружаем список магазинов и позволяем выбрать
   // Для обычного кассира - используем магазин кассира
-  const { data: stores } = useQuery({
+  const { data: storesData } = useQuery({
     queryKey: ['stores'],
     queryFn: () => storesApi.getAll().then(res => res.data),
     enabled: !!cashier && (cashier.is_superuser || false),
     retry: 1,
     refetchOnWindowFocus: false,
   })
+
+  const stores = storesData?.items || []
   
   useEffect(() => {
     if (cashier) {
@@ -139,7 +141,7 @@ function POSPage() {
                   style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem' }}
                 >
                   <option value="">{t('pos.selectStore')}</option>
-                  {stores?.map((store) => (
+                  {stores?.map((store: Store) => (
                     <option key={store.id} value={store.id}>
                       {store.name} {store.address ? `- ${store.address}` : ''}
                     </option>

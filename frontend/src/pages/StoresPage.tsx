@@ -133,7 +133,7 @@ function StoresPage() {
             </tr>
           </thead>
           <tbody>
-            {stores?.map((store) => (
+            {stores?.map((store: Store) => (
               <tr key={store.id}>
                 <td data-label="ID">{store.id}</td>
                 <td data-label={t('stores.name')}>{store.name}</td>

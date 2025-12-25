@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { authApi, type CashierProfile } from '../services/api'
 
 interface AuthContextType {
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const profile = await authApi.getProfile()
       setCashier(profile)
-    } catch (error) {
+    } catch (error: any) {
       // Токен невалиден, удаляем его
       localStorage.removeItem('token')
       setToken(null)

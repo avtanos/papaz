@@ -122,7 +122,7 @@ function DiscountsPage() {
             </tr>
           </thead>
           <tbody>
-            {rules?.map((rule) => (
+            {rules?.map((rule: DiscountRule) => (
               <tr key={rule.id}>
                 <td data-label="ID">{rule.id}</td>
                 <td data-label={t('discounts.name')}>{rule.name}</td>

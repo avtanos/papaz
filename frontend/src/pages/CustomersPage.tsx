@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { customersApi, bonusesApi, type Customer, type BonusBalance } from '../services/api'
+import { customersApi, bonusesApi, type Customer, type Purchase } from '../services/api'
 import Pagination from '../components/Pagination'
 import '../App.css'
 
@@ -106,7 +106,7 @@ function CustomersPage() {
             </tr>
           </thead>
           <tbody>
-            {customers?.map((customer) => (
+            {customers?.map((customer: Customer) => (
               <tr key={customer.id}>
                 <td data-label="ID">{customer.id}</td>
                 <td data-label={t('customers.phone')}>{customer.phone}</td>
@@ -177,7 +177,7 @@ function CustomerDetails({ customer, onClose }: { customer: Customer; onClose: (
   const [purchasesPage, setPurchasesPage] = useState(1)
   const [purchasesPerPage, setPurchasesPerPage] = useState(10)
   
-  const { data: purchasesData, refetch: refetchPurchases } = useQuery({
+  const { data: purchasesData } = useQuery({
     queryKey: ['purchases', customer.id, purchasesPage, purchasesPerPage],
     queryFn: () => customersApi.getPurchases(customer.id, (purchasesPage - 1) * purchasesPerPage, purchasesPerPage).then(res => res.data),
     refetchOnWindowFocus: true,
@@ -517,7 +517,7 @@ function CustomerDetails({ customer, onClose }: { customer: Customer; onClose: (
                         </tr>
                       </thead>
                       <tbody>
-                        {purchases.map((purchase) => (
+                        {purchases.map((purchase: Purchase) => (
                           <tr key={purchase.id}>
                             <td data-label={t('customers.purchaseDate')}>{new Date(purchase.purchase_date).toLocaleDateString()}</td>
                             <td data-label={t('customers.store')}>{purchase.store_name || t('customers.store', 'Магазин')} #{purchase.store_id}</td>

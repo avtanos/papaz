@@ -23,7 +23,7 @@ api.interceptors.request.use((config) => {
 // Добавляем обработчик ошибок
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  (error: any) => {
     if (error.code === 'ECONNABORTED') {
       console.error('Request timeout - backend server may not be running')
     } else if (error.response) {
@@ -86,6 +86,25 @@ export interface Store {
   email?: string
   is_active: boolean
   created_at: string
+}
+
+export interface PaginatedResponse<T> {
+  items: T[]
+  total: number
+  skip: number
+  limit: number
+}
+
+export interface CustomerHistoryEntry {
+  id: number
+  changed_at: string
+  changed_by?: string
+  change_type: string
+  field_name: string
+  old_value?: string
+  new_value?: string
+  changes?: any
+  notes?: string
 }
 
 export const customersApi = {
