@@ -26,6 +26,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 EXPOSE 8000
 
 # Команда запуска
+# Railway автоматически устанавливает переменную $PORT
 # Используем скрипт start.sh для гибкости
 COPY start.sh .
 RUN chmod +x start.sh
