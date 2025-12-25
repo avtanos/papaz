@@ -45,12 +45,24 @@ GitHub Pages поддерживает только статические сай
 
 ### После деплоя backend:
 
-1. Обновите переменную окружения `VITE_API_BASE_URL` в `.env.production`
-2. Или создайте файл `.env.production` в папке `frontend/`:
-   ```
-   VITE_API_BASE_URL=https://your-backend-url.com/api
-   ```
-3. Закоммитьте изменения и запушьте в репозиторий
+1. Получите URL вашего backend (например: `https://your-app.railway.app`)
+
+2. Добавьте секрет в GitHub:
+   - Перейдите в `Settings` → `Secrets and variables` → `Actions`
+   - Нажмите `New repository secret`
+   - **Name**: `VITE_API_BASE_URL`
+   - **Value**: `https://your-backend-url.com/api` (замените на ваш URL)
+   - Нажмите `Add secret`
+
+3. Перезапустите деплой frontend:
+   - Перейдите в `Actions`
+   - Выберите последний workflow
+   - Нажмите `Re-run all jobs`
+
+Или создайте файл `.env.production` в папке `frontend/` (но это менее безопасно):
+```
+VITE_API_BASE_URL=https://your-backend-url.com/api
+```
 
 ## Локальная разработка
 

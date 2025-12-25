@@ -7,7 +7,12 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./kids_store.db"  # Временно SQLite для быстрого запуска
     
     # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    CORS_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://avtanos.github.io",
+        "https://*.github.io"
+    ]
     
     # Redis (для Celery)
     REDIS_URL: str = "redis://localhost:6379/0"
