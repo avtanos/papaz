@@ -51,7 +51,7 @@ function AppRoutes() {
 
 function AppContent() {
   return (
-    <Router>
+    <Router basename="/papaz">
       <AppRoutes />
     </Router>
   )
