@@ -26,13 +26,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 EXPOSE 8000
 
 # Команда запуска
-# Railway автоматически устанавливает переменную $PORT
-# Используем скрипт start.sh для гибкости
-COPY start.sh .
-RUN chmod +x start.sh
+# Используем Python скрипт для правильной обработки переменной PORT
+COPY run.py .
+RUN chmod +x run.py
 
-# Убеждаемся, что скрипт имеет правильные права
-RUN ls -la start.sh
-
-# Используем bash для правильной обработки переменных окружения
-CMD ["/bin/bash", "start.sh"]
+# Используем Python для запуска (более надежно для переменных окружения)
+CMD ["python", "run.py"]
