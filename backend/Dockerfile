@@ -30,4 +30,8 @@ EXPOSE 8000
 # Используем скрипт start.sh для гибкости
 COPY start.sh .
 RUN chmod +x start.sh
+
+# Убеждаемся, что скрипт имеет правильные права
+RUN ls -la start.sh
+
 CMD ["./start.sh"]
